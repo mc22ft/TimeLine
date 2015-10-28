@@ -1,0 +1,8 @@
+TimeLine Vision
+
+På svenska!
+
+Jag hade som vision att göra en app om events. Riktiga events som paintball, dans, gokart eller liknade. 
+Idén är att kunna planera en dag. T.ex om man ska planera en svensexa, möhippa, födelsedag m.m. Tanken
+är att sätta dessa event på en timeline. Så att man ser hur dagen kommer se ut och om då kanske tiden 
+kommer räcka till till den tid man satt upp från början.

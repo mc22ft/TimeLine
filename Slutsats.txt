@@ -1,0 +1,14 @@
+Kort slutsats.
+
+Jag tog mig lite vatten över huvudet. Det var svårare än jag trodde att sätta events på en timeline.
+Jag jobbade med att ha objekt i en session. Det fungerade bra. Det var lite trubbel med alla foreach 
+och for loopar i view. Kanske gick att göra på något annat sätt men jag jobbade mycket med arrayer. 
+
+I koden försökte fokusera på dom sakerna som jag hade svårt för innan. Att få controllerna att fungera 
+på ett bra sätt. Och namn givningarna på functioner. Försökt att ha så ren kod som möjligt.
+
+Testningen gjorde jag efterhand. Jag anv mig att var_dump. Väldigt många sådana...
+
+Jag hann få ihop det sista viktigaste sakerna för att man skulle få en syn på hur det skulle se ut. Men 
+jag är inte nöjd över att jag inte hann med det som jag hade tänkt från början. Men jag har lärt mig väldigt 
+mycket på detta projekt.

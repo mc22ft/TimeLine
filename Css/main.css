@@ -1,0 +1,70 @@
+body {
+    
+}
+
+
+/*Calendar css*/
+
+body {
+			/*background: #efefef;*/
+		}
+	
+		section {
+			width:500px;
+			position: relative;
+			margin: 0 auto;
+			background: #fff;
+			padding:10px;
+			text-align: center;
+			font-family: Helvetica, Arial, Sans-serif;
+		}
+		
+		table {
+			margin-top:25px;
+			-webkit-user-select:none;		
+		}
+		
+			.days  td {
+				height:15px !important;
+				text-align: center;
+				font-size: 14px;
+				padding:5px 0 5px 0 !important;
+				color:#555;
+				font-weight: bold;  
+			}
+		
+			.month td {
+				margin:0px;
+				border-top:1px solid #adb0b1;
+				border-left:1px solid #adb0b1;
+				background: #d4d7d8;
+				position: relative;
+				height:50px;
+				padding:20px 0 0 0;
+				width:70px;
+			}
+			
+				.month td:hover:not(.today) {
+					background: #cbd1d3;
+				}
+			
+				.planner .blur {
+					background:#eceded;
+				}
+				
+				.planner .today {
+					background: #c4cacc;
+				}
+				
+			.month td a.date {
+				position: absolute;
+				top:5px;
+				right:5px;
+				font-size: 12px;
+				color:#9fa1a1;
+			}
+			
+			p {
+				font-size: 12px;
+				color: #999;
+			}
