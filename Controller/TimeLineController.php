@@ -22,10 +22,12 @@ class TimeLineController{
     private $navigationView;
     private $model;
     private $answer;
+    //private $listEvents;
 
     public function __construct(\model\TimeLineModel $model){
         $this->model = $model;
         $this->navigationView = new \view\NavigationView();
+        
     }
 
     public function doTimeLineSetUp(){
@@ -33,6 +35,7 @@ class TimeLineController{
         //in TimeLine
         if($this->navigationView->userWhantsToSeeTimeLine()){
                 
+           
                 //Begin set up model
                 //Save to line to model
                 $lineObj = $this->model->getSession();
@@ -41,12 +44,18 @@ class TimeLineController{
                 //SetUp view
                 $lineView = new \view\EmptyLineView($this->model);
                 $sendEvent = new \view\SendEventView($this->model);
+                $listEvents = new \view\ListEvents($this->model);
+
+                //Remove 1 event from TimeLine obj
+                if($listEvents->userPressedDeleteEvent()){
+                    $idTime = $listEvents->getStartTime();
+                    $this->model->removeEvent($idTime);
+                }
 
                 //Remove all events from TimeLine obj
                 if($sendEvent->userPressedClearEvent()){
                     $this->model->removeAllEvents();
                 }
-                 
 
                 if($sendEvent->userPressedNewTimeLine()){
                     //redirect to first page
@@ -77,9 +86,9 @@ class TimeLineController{
 
                 //Build up output
                 $TimeLineEventView = new \view\TimeLineEventView($this->model);
-
+                
                 //Output
-                $this->timeLineView = new \view\TimeLineView($lineView, $TimeLineEventView, $sendEvent, $this->answer);
+                $this->timeLineView = new \view\TimeLineView($lineView, $TimeLineEventView, $sendEvent, $listEvents);
         
         }
     }

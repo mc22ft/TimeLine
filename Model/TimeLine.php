@@ -40,4 +40,8 @@ class TimeLine{
         unset($this->eventArray);
         $this->eventArray = array();
     }
+
+    public function updateEventArray($events){
+        $this->eventArray = $events;
+    }
 }

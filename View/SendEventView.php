@@ -2,7 +2,7 @@
 
 namespace view;
 
-require_once("view/TimeValidation.php");
+require_once("view/ListEvents.php");
 
 class SendEventView{
 
@@ -21,11 +21,11 @@ class SendEventView{
 
     public function __construct(\model\TimeLineModel $model){
         $this->model = $model;
-        $this->timeValidation = new \view\TimeValidation($this->model);
+        $this->timeValidation = new \view\ListEvents($this->model);
         $_SESSION["message"] = "";
 }
 
-    public function getEvent($mesage){
+    public function getEvent(){
         $this->message = $_SESSION["message"];
         
         
@@ -40,10 +40,10 @@ class SendEventView{
         //clear events
         if($this->userPressedClearEvent()){
             $this->message = "All events is removed from timeline";
-            if(!empty($this->model->getAllEvent())){
-                var_dump($this->message);
-                $this->message = "All events is removed from timeline";
-            }
+            //if(!empty($this->model->getAllEvent())){
+            //    var_dump($this->message);
+            //    $this->message = "All events is removed from timeline";
+            //}
         }
       
         return $this->generateEventFormHTML($this->message);
@@ -58,7 +58,7 @@ class SendEventView{
             $this->startTimeValidation($event);
             $this->stopTimeValidation($event);
             $this->isEventSetRight($event);
-            var_dump($this->message);
+            //var_dump($this->message);
             $_SESSION["message"] = $this->message;
              if(empty($this->message)){
                  $this->passedValidation = true;
@@ -103,6 +103,7 @@ class SendEventView{
 
     
     public function isEventSetRight($inEvent){
+        
         $this->doTimeToDivIds($inEvent);
         //get highest and lowerst divid
         $timeLine = $this->model->getSelectedTimeLine();
@@ -145,17 +146,19 @@ class SendEventView{
         $stop = $this->addZero($event->getStopTime());
         $nrEvents = $stop - $start;
         $nrEvents = $nrEvents * 2;
-
+        
         //Set id ex 07 = id 7.5
         $id = $start;
-        $divIdArray = array();
+        //$divIdArray = array();
         for ($x = 1; $x <= $nrEvents; $x++) {
             $id += 0.5; 
             //$start contains int start + 0.5
             //For halv houer 
             //Add to array
             $event->setDivIdToArray($id);
+
         }
+        
         $this->event = $event;
     }
 
@@ -166,13 +169,28 @@ class SendEventView{
             //true add zero at beginngin
             $time = "0" . $time;
         }
+        //var_dump($time);
 
+        //Check for half houer must be float
+        if(substr($time, -2, 1) == 3){
+            //remove "03" and get first end secound character
+            $first = substr($time, -5, 1);
+            $secound = substr($time, -4, 1);
+            $time = $first . $secound;
+            //add on end
+            $time = $time . ".5";
+        }
+
+
+        
         //get only 2 first characters
-        $first = substr($time, -5, 1);
-        $secound = substr($time, -4, 1);
-        $time = $first . $secound;
+        //$first = substr($time, -5, 1);
+        //$secound = substr($time, -4, 1);
+        //$time = $first . $secound;
+        //var_dump($time);
         //to float
         $time = (float)$time;
+        //var_dump($time);
         return $time;
     }
 
@@ -206,7 +224,8 @@ class SendEventView{
 
     //For Houer and not half houers any more...
     private function timeValidation($time){
-        $t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[0][0])$#', $time);
+        $t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[3][0])$#', $time);
+        //$t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[0][0])$#', $time);
         if($t == 0){
             return TRUE;
         }

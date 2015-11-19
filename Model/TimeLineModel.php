@@ -36,6 +36,23 @@ class TimeLineModel {
        $this->timeLine->removeAllEvents();
     }
 
+    public function removeEvent($idEvent){
+        $events = $this->timeLine->getEventArray();
+       
+        $indexCount = 0;
+        foreach ($events as $event)
+        {   
+        	if ($event->getStartTime() == $idEvent)
+            {
+                //Removes event 
+                unset($events[$indexCount]);
+                $events = array_values($events);
+                $this->timeLine->updateEventArray($events);
+            }
+            $indexCount++;
+        }
+    }
+
     //Set
     public function saveSession($obj) {
 		$this->sessionHandeler->saveSession($obj);
