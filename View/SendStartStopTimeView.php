@@ -97,6 +97,7 @@ class SendStartStopTimeView{
                  $this->startTimeValidation();
                  $this->stopTimeValidation();
                  $this->sameDayValidation();
+                 $this->timeOutOfBounds();
              }
              if(empty($this->message)){
                  $this->passedValidation(true);
@@ -118,6 +119,19 @@ class SendStartStopTimeView{
                     $this->message = "Stopp time not right";
                 }
     }
+
+    //If intime is out of bounds
+    private function timeOutOfBounds(){
+                if(strtotime($this->getStartTime()) < strtotime($this->getStartTime()) ||
+                        strtotime($this->getStopTime()) > strtotime($this->getStopTime())){
+                    $this->message = "Event time is set out of timeline";
+                }
+
+                if(strtotime($this->getStartTime()) >= strtotime($this->getStopTime())){
+                    $this->message = "Stop time is wrong";
+                }
+    }
+
     private function getIntTimeForValidation($time){
                 if(strlen($time) == 4){ 
                     //true add zero at beginngin

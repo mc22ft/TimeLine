@@ -1,6 +1,8 @@
 <?php
-    
+
 namespace view;
+
+require_once("view/TimeValidation.php");
 
 class SendEventView{
 
@@ -14,17 +16,32 @@ class SendEventView{
     private $message;
     private $passedValidation = false;
     private $model;
+    private $event;
+    private $timeValidation;
 
     public function __construct(\model\TimeLineModel $model){
         $this->model = $model;
-    }
+        $this->timeValidation = new \view\TimeValidation($this->model);
+        $_SESSION["message"] = "";
+}
 
     public function getEvent($mesage){
-        $this->message = $mesage;
+        $this->message = $_SESSION["message"];
         
+        
+        //$event = $this->getNewEvent();
+        //$this->doValiadtion($event);
+
+         if($this->passedValidation){
+            //var_dump($this->event);
+            //$this->model->addEvent($this->event);
+         }
+
         //clear events
         if($this->userPressedClearEvent()){
+            $this->message = "All events is removed from timeline";
             if(!empty($this->model->getAllEvent())){
+                var_dump($this->message);
                 $this->message = "All events is removed from timeline";
             }
         }
@@ -32,18 +49,26 @@ class SendEventView{
         return $this->generateEventFormHTML($this->message);
     }
 
-    public function doValiadtion(){
+    public function doValiadtion($event){
          if($this->userPressedSendEvent()){
-             $this->startTimeValidation();
-             $this->stopTimeValidation();
+            //var_dump($this->getNewEvent());
+             //$this->messsage = $this->timeValidation->doValidationEvent($this->getNewEvent());
+             //$this->messsage = $this->doValidationEvent($this->getNewEvent());
+             //$event = $this->getNewEvent();
+            $this->startTimeValidation($event);
+            $this->stopTimeValidation($event);
+            $this->isEventSetRight($event);
+            var_dump($this->message);
+            $_SESSION["message"] = $this->message;
              if(empty($this->message)){
-                 $this->passedValidation(true);
+                 $this->passedValidation = true;
+
              }
         }
     }
 
-    public function passedValidation($passed){
-        $this->passedValidation = true;
+    public function getPassedValidation(){
+        return $this->passedValidation;
     }
 
     public function getNewEvent(){
@@ -76,21 +101,94 @@ class SendEventView{
 		";
     }
 
-    //almost same as in timeValidationModel
-    private function startTimeValidation(){
-                if(empty($this->getStartTime())){
+    
+    public function isEventSetRight($inEvent){
+        $this->doTimeToDivIds($inEvent);
+        //get highest and lowerst divid
+        $timeLine = $this->model->getSelectedTimeLine();
+        $events = $timeLine->getEventArray();
+        $idInArray = $inEvent->getDivIdArray();
+       
+        //spinn on evry event
+        foreach($events as $event){
+            
+            $modelDivIdArray = $event->getDivIdArray();
+
+            //Spinn on event array
+            foreach($modelDivIdArray as $value){
+                
+                //spinn on input array
+                foreach($idInArray as $divInId){
+                    
+                    //match?
+                    if (in_array($divInId, $modelDivIdArray)) {
+                        $this->message = "Event is alredy set on this time";
+                    }
+                }
+            }
+        }
+        
+        //If intime is out of bounds
+        if(strtotime($inEvent->getStartTime()) < strtotime($timeLine->getStartTime()) ||
+                strtotime($inEvent->getStopTime()) > strtotime($timeLine->getStopTime())){
+            $this->message = "Event time is set out of timeline";
+        }
+
+        if(strtotime($inEvent->getStartTime()) >= strtotime($inEvent->getStopTime())){
+            $this->message = "Stop time is wrong";
+        }
+    }
+
+    //For print out on view
+    public function doTimeToDivIds($event){
+        $start = $this->addZero($event->getStartTime());
+        $stop = $this->addZero($event->getStopTime());
+        $nrEvents = $stop - $start;
+        $nrEvents = $nrEvents * 2;
+
+        //Set id ex 07 = id 7.5
+        $id = $start;
+        $divIdArray = array();
+        for ($x = 1; $x <= $nrEvents; $x++) {
+            $id += 0.5; 
+            //$start contains int start + 0.5
+            //For halv houer 
+            //Add to array
+            $event->setDivIdToArray($id);
+        }
+        $this->event = $event;
+    }
+
+    //To the biginning if time = 07:00 = 07:00
+    public function addZero($time){
+        //ZERO RULE
+        if(strlen($time) == 4){ 
+            //true add zero at beginngin
+            $time = "0" . $time;
+        }
+
+        //get only 2 first characters
+        $first = substr($time, -5, 1);
+        $secound = substr($time, -4, 1);
+        $time = $first . $secound;
+        //to float
+        $time = (float)$time;
+        return $time;
+    }
+
+    private function startTimeValidation($event){
+                if(empty($event->getStartTime())){
                     $this->message = "Start time is missing";
                 }else{
                     //Valedering time
-                    if($this->timeValidation($this->getStartTime())){
+                    if($this->timeValidation($event->getStartTime())){
                         $this->message = "Start time is wrong. Only hours like: 7:00, 08:00, 7:00, 15:00 18:00";
                     }
                 }
     }
 
-    //almost same as in timeValidationModel
-    private function stopTimeValidation(){
-                if(empty($this->getStopTime())){
+    private function stopTimeValidation($event){
+                if(empty($event->getStopTime())){
                     if(!empty($this->message)){
                         $this->message .= "<br/>";
                     }
@@ -100,13 +198,13 @@ class SendEventView{
                     if(!empty($this->message)){
                         $this->message .= "<br/>";
                     }
-                     if($this->timeValidation($this->getStopTime())){
-                        $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:30";
+                     if($this->timeValidation($event->getStopTime())){
+                        $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
                     }
                 }
     }
 
-    //Houer and not half houers any more
+    //For Houer and not half houers any more...
     private function timeValidation($time){
         $t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[0][0])$#', $time);
         if($t == 0){
@@ -114,6 +212,28 @@ class SendEventView{
         }
         return FALSE;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      //bool
     public function userPressedSendEvent() {
 		if(isset($_POST[self::$doEvent])){

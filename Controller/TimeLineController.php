@@ -32,7 +32,7 @@ class TimeLineController{
         
         //in TimeLine
         if($this->navigationView->userWhantsToSeeTimeLine()){
-                $timeValidation = new \model\TimeValidation($this->model);
+                
                 //Begin set up model
                 //Save to line to model
                 $lineObj = $this->model->getSession();
@@ -52,18 +52,27 @@ class TimeLineController{
                     //redirect to first page
                 }
                 if($sendEvent->userPressedSendEvent()){
-                    $timeValidation = new \model\TimeValidation($this->model);
 
-                    //Get event from view
                     $newEvent = $sendEvent->getNewEvent();
-                    
-                    $this->answer = $timeValidation->doValidationEvent($newEvent);
-                    //save it to model?
-                    if(empty($this->answer)){
-                        $this->model->addEvent($newEvent);
-                        //Add to session in model
-                        $this->model->saveSelectedSession();
+
+                    $sendEvent->doValiadtion($newEvent);
+
+                    if ($sendEvent->getPassedValidation())
+                    {
+                       //var_dump($newEvent);
+                    	$this->model->addEvent($newEvent);
                     }
+                    
+                   //Get event from view
+                    //$newEvent = $sendEvent->getNewEvent();
+                    
+                     //var_dump($newEvent);
+                    //save it to model?
+                    
+                    //$this->model->addEvent($newEvent);
+                    //Add to session in model
+                    $this->model->saveSelectedSession();
+                    
                 }
 
                 //Build up output

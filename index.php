@@ -4,6 +4,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+//phpinfo();
+
+
 //INCLUDE THE FILES NEEDED...
 
 require_once("controller\MasterController.php");

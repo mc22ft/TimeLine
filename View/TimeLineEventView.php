@@ -40,7 +40,7 @@ class TimeLineEventView{
                      $stop =  $timeObj->getStopTime();
 
                      $events = $this->model->getAllEvent();
-
+                     //var_dump($events);
                      //sort obj array for print out right
                      usort($events, function ($item1, $item2) {
                           $ts1 = strtotime($item1->getStartTime());
@@ -68,7 +68,8 @@ class TimeLineEventView{
                                     $event = $events[$indexCount];
                                     //get array width id
                                     $eventArr = $event->getDivIdArray();
-
+                                    //var_dump($event->getDivIdArray());
+                                    
                                     //Looking for fist hit false empty div
                                     if($floatStartTime == $eventArr[0]){
                                         //Spinn at divId in event object
