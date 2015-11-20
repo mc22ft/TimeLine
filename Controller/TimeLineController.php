@@ -2,10 +2,10 @@
 
 namespace controller;
 
-require_once("view/TimeLineView.php");
-require_once("view/EmptyLineView.php");
-require_once("view/SendEventView.php");
-require_once("view/TimeLineEventView.php");
+require_once("View/TimeLineView.php");
+require_once("View/EmptyLineView.php");
+require_once("View/SendEventView.php");
+require_once("View/TimeLineEventView.php");
 
 /**
  * TimeLineController short summary.

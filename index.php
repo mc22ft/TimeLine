@@ -6,8 +6,8 @@ ini_set('display_errors', 'On');
 
 //INCLUDE THE FILES NEEDED...
 
-require_once("controller\MasterController.php");
-require_once("view/HTMLView.php");
+require_once("Controller/MasterController.php");
+require_once("View/HTMLView.php");
 
 session_start();
 

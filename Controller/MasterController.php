@@ -2,11 +2,11 @@
 
 namespace controller;
 
-require_once("controller/DateTimeController.php");
-require_once("controller/TimeLineController.php");
-require_once("view/NavigationView.php");
-require_once("model/TimeLineModel.php");
-require_once("model/SessionHandeler.php");
+require_once("Controller/DateTimeController.php");
+require_once("Controller/TimeLineController.php");
+require_once("View/NavigationView.php");
+require_once("Model/TimeLineModel.php");
+require_once("Model/SessionHandeler.php");
 
 /**
  * MasterController short summary.

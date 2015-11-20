@@ -6,6 +6,7 @@ class ListEvents {
     
     private static $startTime = "ListEvents::StartTime";
 	private static $stopTime = "ListEvents::StopTime";
+    private static $text = "ListEvents::Text";
     private static $doDeleteEvent = "ListEvents::Delete";
 
     //private $message;
@@ -23,7 +24,7 @@ class ListEvents {
 
     //HTML
     //Register form
-    private function generateEventsFormHTML() {
+    private function generateEventsFormHTML($events) {
         $formOut = "";
         //build form
         if (!empty($events))
@@ -32,6 +33,8 @@ class ListEvents {
             foreach ($events as $event){
                 $startTime = $event->getStartTime();
                 $stopTime = $event->getStopTime();
+                $text = $event->getEventText();
+
                 $hidden = "hidden";
                 $formOut .= "<form class='listForm' action='' method='post' enctype='multipart/form-data'>
 			                    <fieldset>
@@ -42,6 +45,10 @@ class ListEvents {
                                         <div class='col-xs-2'>
                                             <label for='".self::$startTime."'><p class='eventTime'>$startTime - $stopTime</p></label>
                                             <input type='".$hidden."' id='".self::$startTime."' name='".self::$startTime."' value='".$startTime."'>
+                                        </div>
+                                        <div class='col-xs-2'>
+                                            <label for='".self::$text."'><p class='eventTime'>$text</p></label>
+                                            <input type='".$hidden."' id='".self::$text."' name='".self::$text."' value>
                                         </div>
                                         <div class='col-xs-2'>
                                             <input class='btn-xs btn-danger' type='submit' id='submit' name='".self::$doDeleteEvent."' value='Remove Event'>

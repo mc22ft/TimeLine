@@ -2,13 +2,14 @@
 
 namespace view;
 
-require_once("view/ListEvents.php");
+require_once("View/ListEvents.php");
 
 class SendEventView{
 
     private static $messageId = "SendEventView::Message";
 	private static $startTime = "SendEventView::StartTime";
 	private static $stopTime = "SendEventView::StopTime";
+    private static $text = "SendEventView::Text";
     private static $doEvent = "SendEventView::Event";
     private static $doClearEvents = "SendEventView::ClearEvent";
     private static $doNewTimeLine = "SendEventView::NewTimeLine";
@@ -57,7 +58,8 @@ class SendEventView{
     public function getNewEvent(){
         return new \model\Event(
                         $this->getStartTime(),
-                        $this->getStopTime());
+                        $this->getStopTime(),
+                        $this->getEventText());
     }
 
      //HTML
@@ -73,6 +75,11 @@ class SendEventView{
 					    <div class='col-xs-2'>
 					        <input type='text' class='form-control input-sm' id='".self::$stopTime."' name='".self::$stopTime."'  placeholder='Stop Time' value>
                         </div>
+
+                        <div class='col-xs-2'>
+					        <input type='text' class='form-control input-sm' id='".self::$text."' name='".self::$text."'  placeholder='Event Text' value>
+                        </div>
+
                         <div class='col-xs-6'>
                             <input type='submit' class='btn-sm btn-primary' id='submit' name='".self::$doEvent."' value='Set Event'>
                             <input type='submit' class='btn-sm btn-warning' id='submit1' name='".self::$doClearEvents."' value='Clear Events'>
@@ -226,6 +233,12 @@ class SendEventView{
     private function getStopTime() {
 		if (isset($_POST[self::$stopTime]))
 			return trim($_POST[self::$stopTime]);
+		return "";
+	}
+
+    private function getEventText() {
+		if (isset($_POST[self::$text]))
+			return trim($_POST[self::$text]);
 		return "";
 	}
 }

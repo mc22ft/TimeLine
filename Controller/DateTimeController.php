@@ -2,9 +2,9 @@
 
 namespace controller;
 
-require_once("view/DateTimeView.php");
-require_once("view/CalendarView.php");
-require_once("view/SendStartStopTimeView.php");
+require_once("View/DateTimeView.php");
+require_once("View/CalendarView.php");
+require_once("View/SendStartStopTimeView.php");
 
 /**
  * TimeLineController short summary.

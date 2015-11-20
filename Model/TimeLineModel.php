@@ -2,7 +2,7 @@
     
 namespace model;
 
-require_once("model/Event.php");
+require_once("Model/Event.php");
 
 //Handle TimeLine and Events and make sure that they work together
 //Handle session (get set)
