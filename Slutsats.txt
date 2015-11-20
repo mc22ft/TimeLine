@@ -17,4 +17,39 @@ Misstag!
 Valederingen inte komplett. Ville ha en samlad validering i model. En del av koden blev näst inte till lika. Kunde gjort den delen bättre. 
 Jag la css i koden för enkelhetens skull. Skulle kanske in i ett css doc. 
 
-Om jag skulle jobba vidare på detta. Ja, jag tror det kan bli bra om man får till det. Skulle behöva en månad eller två :) 
+Om jag skulle jobba vidare på detta. Ja, jag tror det kan bli bra om man får till det. Skulle behöva en månad eller två :)
+
+
+
+
+									Efter påbackning!
+
+Nu har jag gjort klart funktionerna som fattades i min vision. Det var ganska mycket jobb. 
+
+Valederingen:
+Det blev mycket jobb med att få valederingen av event rätt som jag hade lagt i en model klass. Det rörde till det 
+för jag trodde någonstans att det bara var att lägga över den i view klass. 
+Valederingen av calendar view som inte var fullständig fixades till.
+
+Hanteringen av halvtimmar:
+Fixade till att man kunde få in halvtimmar på timelinen. Det var i stort sätt klart. Det svåra var att komma in i koden igen och 
+förstå hur den fungerade. 
+
+Kod kvaliteten
+Tog bort functioner i view som inte skulle va där.
+Dubbel functioner fixades till.
+CSS i view sattes till css document
+
+MVC
+String beroendet från modelen tog bort.
+String beroendet från model till controller togs bort
+
+Funktioner som fattades:
+Valederingen
+Halvtimmar
+Lista upp event
+Ta bort ett event
+
+Övrigt
+CSS!!! Det var massor av jobb med css. Lite fel i det så kolapsade hela timlinen. 
+Lite dubbel kod och lite kod som jag fick flytta.

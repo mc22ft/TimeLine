@@ -1,13 +1,14 @@
-Instruktions
+Instruktions (functions)
 
-First page 
+Calendar page:
 Set time, click on calendar numbers.
 Set start time
 Set stop time
 
-TimeLine page
+TimeLine page:
 Set start time
 Set stop time
-
-This is a prototype and bugs will apear. 
-There are some validation on timefields.
+Set event
+Clear event
+Start over
+Delete event when event set
