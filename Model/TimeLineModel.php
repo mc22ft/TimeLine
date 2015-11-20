@@ -44,6 +44,7 @@ class TimeLineModel {
         {   
         	if ($event->getStartTime() == $idEvent)
             {
+                //var_dump($idEvent);
                 //Removes event 
                 unset($events[$indexCount]);
                 $events = array_values($events);

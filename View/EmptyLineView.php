@@ -36,6 +36,7 @@ class EmptyLineView{
                                     width: 96%;
                                     margin:auto;
                                     display: table;
+                                    margin-bottom: -5px;
                                     table-layout: fixed;
                                     ">';
 
@@ -90,7 +91,7 @@ class EmptyLineView{
                                   $out .= '<div style="
                                             border-right: 1px solid black;
                                             display: table-cell;
-                                            "><p>|</p></div>';
+                                            "><p></p><p>|</p></div>';
                              }else{
                                   $out .= '<div style="
                                             display: table-cell;
@@ -109,7 +110,7 @@ class EmptyLineView{
                 </tr>
               </table>';
               $out .= '<div style="width: 96%;
-                               margin-top: -6px;
+                               
                                margin-left: auto;
                                margin-right: auto;
                                border-top: 1px solid black;"

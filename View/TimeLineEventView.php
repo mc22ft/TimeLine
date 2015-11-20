@@ -24,22 +24,38 @@ class TimeLineEventView{
         
         //Build up rawTimeLine
         $out = '<table style="width:100%; border-spacing: 0;
-                        border-collapse: collapse;">
+                        border-collapse: separate !important;">
                     <tr>
                         <td>';
                     //set upp times
-                    $out .= '<div style="
+                    
+                    
+                    $start =  $timeObj->getStartTime();
+                    $stop =  $timeObj->getStopTime();
+                    $events = $this->model->getAllEvent();
+
+                    if (empty($events))
+                    {
+                        $out .= '<div style="
                                     width: 96%;
                                     margin:auto;
                                     display: table;
                                     table-layout: fixed;
-                                    margin-bottom: 100px;
+                                    margin-bottom: 89px;
                                     ">';
-
-                     $start =  $timeObj->getStartTime();
-                     $stop =  $timeObj->getStopTime();
-
-                     $events = $this->model->getAllEvent();
+                    }else
+                    {
+                        $out .= '<div style="
+                                    width: 96%;
+                                    margin:auto;
+                                    display: table;
+                                    table-layout: fixed;
+                                    margin-bottom: 33px;
+                                    ">';
+                    }
+                    
+                    
+                     
                      //var_dump($events);
                      //sort obj array for print out right
                      usort($events, function ($item1, $item2) {
@@ -73,23 +89,57 @@ class TimeLineEventView{
                                     //Looking for fist hit false empty div
                                     if($floatStartTime == $eventArr[0]){
                                         //Spinn at divId in event object
+
+                                        //Last element for design
+                                        $lastDiv = end($eventArr);
+
+
                                         foreach ($eventArr as $divId){
                                             //first div out if hit
                                             if($floatStartTime == $divId){
                                                 $start = $event->getStartTime();
+                                                $stop = $event->getStopTime();
                                                 $out .= '<div class="" style="
-                                                    color: black;
-                                                    background-color: red;
+
+                                                    background-color: #5bc0de;
                                                     display: table-cell;
+                                                    border-radius: 6px 0px 0px 6px;
+                                                    -moz-border-radius: 6px 0px 0px 6px;
+                                                    -webkit-border-radius: 6px 0px 0px 6px;
+                                                    border: 1px solid #555;
+                                                    border-right: 0;
                                                     "><p  style="
-                                                        color: black;
+                                                        color: #333;
                                                         text-align: center;
-                                                    ">'.$start.'</p></div>';
+                                                        margin-top: 10px;
+                                                    ">'.$start.'</p><p  style="
+                                                        color: #333;
+                                                        text-align: center;
+                                                        
+                                                    ">'.$stop.'</p></div>';
                                             }else{
-                                                $out .= '<div class="" style="
-                                                    background-color: red;
+                                                //Last div
+                                                if ($lastDiv == $divId)
+                                                {
+                                                	$out .= '<div class="" style="
+                                                    background-color: #5bc0de;
                                                     display: table-cell;
+                                                    border-radius: 0px 6px 6px 0px;
+                                                    -moz-border-radius: 0px 6px 6px 0px;
+                                                    -webkit-border-radius: 0px 6px 6px 0px;
+                                                    border: 1px solid #555;
+                                                    border-left: 0;
                                                     "></div>';
+                                                }else
+                                                {
+                                                    $out .= '<div class="" style="
+                                                    background-color: #5bc0de;
+                                                    display: table-cell;
+                                                    border: 1px solid #555;
+                                                    border-left: 0;
+                                                    border-right: 0;
+                                                    "></div>';
+                                                }
                                                $floatStartTime += 0.5;
                                                $x++;
                                             } 

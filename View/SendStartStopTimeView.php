@@ -65,22 +65,31 @@ class SendStartStopTimeView{
      //HTML
     //Register form
     private function generateRegisterFormHTML($message) {
-		return "<form action='' method='post' enctype='multipart/form-data'>
-				<fieldset>
+		return "<form class='text-center' action='' method='post' enctype='multipart/form-data'>
+				
 					<legend>Register a new TimeLine - Write start time and stop time</legend>
                     <p style='color:red;' id='".self::$messageId."'>$message</p>
-                    <label for='".self::$date."'>Date :</label>
-					<input type='text' id='".self::$date."' name='".self::$date."' value='".$this->getRequestDate()."' readonly>
-                    <br>
-                    <label for='".self::$startTime."'>Start Time :</label>
-					<input type='text' id='".self::$startTime."' name='".self::$startTime."' value>
-                    <br>
-					<label for='".self::$stopTime."'>Stop Time :</label>
-					<input type='text' id='".self::$stopTime."' name='".self::$stopTime."' value>
-                    <br>
-					<input type='submit' id='submit' name='".self::$doRegistration."' value='Make TimeLine'>
-                    <br>
-				</fieldset>
+                   
+                <div class='row'>
+
+                    <div class='col-xs-4'>
+                        <label for='".self::$date."'>Date</label>
+					    <input type='text' class='form-control input-sm' id='".self::$date."' name='".self::$date."' value='".$this->getRequestDate()."' readonly>
+                    </div>
+                    <div class='col-xs-4'>
+                        <label for='".self::$startTime."'>Start Time</label>
+					    <input type='text' class='form-control input-sm' id='".self::$startTime."' name='".self::$startTime."' value>
+                    </div>
+                    <div class='col-xs-4'>
+					    <label for='".self::$stopTime."'>Stop Time</label>
+					    <input type='text'class='form-control input-sm'  id='".self::$stopTime."' name='".self::$stopTime."' value>
+                    </div>
+                 </div> 
+               
+                <div class='buttom'>
+                    <input class='btn-sm btn-primary' type='submit' id='submit' name='".self::$doRegistration."' value='Make TimeLine'>
+                    
+                </div>
 			</form>
 		";
     }
@@ -94,10 +103,11 @@ class SendStartStopTimeView{
              if(empty($_POST[self::$date])){
                  $this->message = "You have to set a date first";
              }else{
-                 $this->startTimeValidation();
-                 $this->stopTimeValidation();
+                
                  $this->sameDayValidation();
                  $this->timeOutOfBounds();
+                 $this->startTimeValidation();
+                 $this->stopTimeValidation();
              }
              if(empty($this->message)){
                  $this->passedValidation(true);
@@ -150,7 +160,7 @@ class SendStartStopTimeView{
                 }else{
                     //Valedering time
                     if($this->timeValidation($_POST[self::$startTime])){
-                        $this->message = "Start time is wrong. Only hours like: 8:00, 7:00, 15:00 18:00";
+                        $this->message = "Start time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
                     }
                 }
     }
@@ -167,7 +177,7 @@ class SendStartStopTimeView{
                         $this->message .= "<br/>";
                     }
                      if($this->timeValidation($_POST[self::$stopTime])){
-                        $this->message .= "Stop time is wrong. Only hours like: 8:00, 7:00, 15:00 18:00";
+                         $this->message .= "Stop time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
                     }
                 }
     }

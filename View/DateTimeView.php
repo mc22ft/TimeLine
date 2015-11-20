@@ -19,7 +19,7 @@ class DateTimeView{
         $startStopTime = $this->time->getStartStopTime();
 
         return "<div>
-                    <h2>Set your date and time</h2>
+                    <p class='text-center'>Set your date and time</p>
                     <div>
                         $calenderHTML
                     </div>

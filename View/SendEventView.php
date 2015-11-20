@@ -55,9 +55,10 @@ class SendEventView{
              //$this->messsage = $this->timeValidation->doValidationEvent($this->getNewEvent());
              //$this->messsage = $this->doValidationEvent($this->getNewEvent());
              //$event = $this->getNewEvent();
+            
+            $this->isEventSetRight($event);
             $this->startTimeValidation($event);
             $this->stopTimeValidation($event);
-            $this->isEventSetRight($event);
             //var_dump($this->message);
             $_SESSION["message"] = $this->message;
              if(empty($this->message)){
@@ -80,23 +81,30 @@ class SendEventView{
      //HTML
     //Register form
     private function generateEventFormHTML($message) {
-		return "<form action='' method='post' enctype='multipart/form-data'>
-				<fieldset>
+		return "<form class='eventForm' action='' method='post' enctype='multipart/form-data'>
+				
 					<legend>Register a new Event - Write start time and stop time</legend>
                     <p style='color:red;' id='".self::$messageId."'>$message</p>
-                    <label for='".self::$startTime."'>Start Time :</label>
-					<input type='text' id='".self::$startTime."' name='".self::$startTime."' value>
-                    <br>
-					<label for='".self::$stopTime."'>Stop Time :</label>
-					<input type='text' id='".self::$stopTime."' name='".self::$stopTime."' value>
-                    <br>
-					<input type='submit' id='submit' name='".self::$doEvent."' value='Set Event'>
-                    <br>
-                    <input type='submit' id='submit1' name='".self::$doClearEvents."' value='Clear Events'>
-                    <br>
-                    <input type='submit' id='submit1' name='".self::$doNewTimeLine."' value='Start over'>
-                    <br>
-				</fieldset>
+                    
+                    <div class='row'>
+
+                        <div class='col-xs-2'>
+                           
+					        <input type='text' class='form-control input-sm' id='".self::$startTime."' name='".self::$startTime."' placeholder='Start Time' value >
+                        </div>
+					    <div class='col-xs-2'>
+                            
+					        <input type='text' class='form-control input-sm' id='".self::$stopTime."' name='".self::$stopTime."'  placeholder='Stop Time' value>
+                        </div>
+					
+                        <div class='col-xs-6'>
+                            <input type='submit' class='btn-sm btn-primary' id='submit' name='".self::$doEvent."' value='Set Event'>
+                    
+                            <input type='submit' class='btn-sm btn-warning' id='submit1' name='".self::$doClearEvents."' value='Clear Events'>
+                    
+                            <input type='submit' class='btn-sm btn-danger' id='submit1' name='".self::$doNewTimeLine."' value='Start Over'>
+                         </div>
+                    </div>
 			</form>
 		";
     }
@@ -200,7 +208,7 @@ class SendEventView{
                 }else{
                     //Valedering time
                     if($this->timeValidation($event->getStartTime())){
-                        $this->message = "Start time is wrong. Only hours like: 7:00, 08:00, 7:00, 15:00 18:00";
+                        $this->message = "Start time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
                     }
                 }
     }
@@ -217,7 +225,7 @@ class SendEventView{
                         $this->message .= "<br/>";
                     }
                      if($this->timeValidation($event->getStopTime())){
-                        $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
+                         $this->message .= "Stop time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
                     }
                 }
     }

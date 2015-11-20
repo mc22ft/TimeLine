@@ -24,14 +24,17 @@ class HTMLView
          <head>
           <meta charset=\"" . $this->charset . "\">
           <link rel='stylesheet' href='Css/main.css' type='text/css'>
+          <link href='Css/bootstrap.min.css' rel='stylesheet'>
           <title>Event Maker</title>
         </head>
-        <body>
-        <h1>Time Line Event Maker</h1>
-         <div>
-            $body
-         </div>
-        </body>
+            <body>
+                <div class='container'>
+                    <h1 class='text-center'>Time Line Event Maker</h1>
+                    <div>
+                        $body
+                    </div>
+                </div>
+            </body>
       </html>";
 	}
 

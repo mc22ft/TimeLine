@@ -1,11 +1,37 @@
-body {
-    
+/*body {
+    margin:10px;
+}*/
+
+
+.eventForm {
+    margin-bottom: 20px;
 }
 
+.buttom {
+    margin-top:10px;
+}
+
+.eventTime {
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.listForm {
+    margin-bottom: -10px;
+}
+
+.listCounter {
+    font-size: 18px;
+    margin-top: 2px;
+    color:black;
+}
 
 /*Calendar css*/
 
 body {
+   
+
+
 			/*background: #efefef;*/
 		}
 	

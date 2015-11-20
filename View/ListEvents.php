@@ -32,31 +32,56 @@ class ListEvents {
     //HTML
     //Register form
     private function generateEventsFormHTML() {
-
+        $formOut = "";
         //build form
-        
         $events = $this->model->getAllEvent();
 
-       
-        $formOut = "<form action='' method='post' enctype='multipart/form-data'>
-				<fieldset>
-					<legend>Evens overView - Click to remove event</legend>";
-                    
-                foreach ($events as $event){
-                    $startTime = $event->getStartTime();
-                    $stopTime = $event->getStopTime();
-                    $hidden = "hidden";
+        //sort obj array for print out right
+        usort($events, function ($item1, $item2) {
+             $ts1 = strtotime($item1->getStartTime());
+             $ts2 = strtotime($item2->getStartTime());
+              if ($ts1 == $ts2) {
+                  return 0;
+              }
+              return ($ts1 < $ts2) ? -1 : 1;
+           });
 
-                    $formOut .= "<label for='".self::$startTime."'>$startTime - $stopTime</label>
-                                <input type='".$hidden."' id='".self::$startTime."' name='".self::$startTime."' value='".$startTime."'>
-                                <input type='submit' id='submit' name='".self::$doDeleteEvent."' value='Remove Event'>
-                                <br>";
-                }
+        if (!empty($events))
+        {
+            //$formOut = "<form action='' method='post' enctype='multipart/form-data'>
+            //        <fieldset>
+            //            <legend>Evens overView - Click to remove event</legend>
+            //            ";
+            $counter = 1;
+                    foreach ($events as $event){
+                        $startTime = $event->getStartTime();
+                        $stopTime = $event->getStopTime();
+                        $hidden = "hidden";
+                        $formOut .= "<form class='listForm' action='' method='post' enctype='multipart/form-data'>
+				    <fieldset>
+                            <div class='row'>
+  
+                            <div class='col-xs-2'>
+                            <p class='listCounter text-right'>$counter.</p> 
+                            </div>
 
-	    $formOut .=	"</fieldset>
-			</form>";
-		
+                                        <div class='col-xs-2'>
+                                            
+                                            <label class='text-center' for='".self::$startTime."'><p class='eventTime'>$startTime - $stopTime</p></label>
+                                            <input type='".$hidden."' id='".self::$startTime."' name='".self::$startTime."' value='".$startTime."'>
+                                        </div>
+                                        <div class='col-xs-2'>
+                                            <input class='btn-xs btn-danger' type='submit' id='submit' name='".self::$doDeleteEvent."' value='Remove Event'>
+                                        </div>
+                                    </div>
+                        </fieldset>
+			        </form> ";
+                        $counter++;
+                    }
+            //$formOut .=	"</fieldset>
+            //        </form>";
 		return $formOut;
+        }
     }
 
     //Get start time for delete ID

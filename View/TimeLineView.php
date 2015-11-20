@@ -26,7 +26,7 @@ class TimeLineView{
         $listEventsFormHTML = $this->listEvents->getListEvents();
 
         return "<div>
-                    <h2>Set up events</h2>
+                    <p class='text-center'>Set up events</p>
                     <div>
                         $lineHTML
                     </div>
@@ -35,11 +35,11 @@ class TimeLineView{
                         $timeLineEventHTML
                     </div>
 
-                    <div>
+                    <div class'pull-left'>
                         $eventFormHTML
                     </div>
 
-                    <div>
+                    <div class'pull-right'>
                         $listEventsFormHTML
                     </div>
 
