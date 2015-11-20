@@ -25,20 +25,14 @@ class EmptyLineView{
         $divOut = $divOut * 2;
 
         $date = $timeObj->getDate();
-        $out = '<h2 style="text-align: center;">'.$date.'</h2>';
+        $out = '<h2 class="ELVh2">'.$date.'</h2>';
 
         //Build up rawTimeLine
-        $out .= '<table style="width:100%">
+        $out .= '<table class="ELVtable">
                     <tr>
                         <td>';
-                    //set upp times
-                    $out .= '<div style="
-                                    width: 96%;
-                                    margin:auto;
-                                    display: table;
-                                    margin-bottom: -5px;
-                                    table-layout: fixed;
-                                    ">';
+                     //set upp times
+                     $out .= '<div class="ELVtableDiv1">';
 
                      $start =  $timeObj->getStartTime();
                      $stop =  $timeObj->getStopTime();
@@ -55,72 +49,54 @@ class EmptyLineView{
                                   //Even
                                   if($x == $divOut){ 
                                       //last = set stop time
-                                         $out .= '<div style="
-                                            display: table-cell;
-                                            "><p style="
-                                                margin-left: 50%;
-                                                ">'.$nextHouer.'</p></div>';
+                                      $out .= '<div class="ELVtableDiv2">
+                                                   <p class="ELVtableP1">'.$nextHouer.'</p>
+                                               </div>';
                                   }else{
-                                      $out .= '<div style="
-                                            display: table-cell;
-                                            "><p></p></div>';
+                                      $out .= '<div class="ELVtableDiv2">
+                                                   <p></p>
+                                               </div>';
                                   }
                              }else{
-                                  $out .= '<div style="
-                                            display: table-cell;
-                                            "><p style="
-                                                margin-left: -13px;
-                                                ">'.$nextHouer.'</p></div>';
-                                                 $nextHouer = $this->addOneHouer($nextHouer);
+                                 $out .= '<div class="ELVtableDiv2">
+                                              <p class="ELVtableP2">'.$nextHouer.'</p>
+                                          </div>';
+                                 $nextHouer = $this->addOneHouer($nextHouer);
                              }
                          }
-
                     $out .= '</div>';
 
                     //set upp raw timeline
-                    $out .= '<div style="
-                                    width: 96%;
-                                    margin: auto;
-                                    display: table;
-                                    table-layout: fixed;
-                                    ;">';
+                    $out .= '<div class="ELVrawDiv1">';
                     for ($x = 1; $x <= $divOut; $x++) {
                         if($x % 2 == 0){
                             //even
                              if($x == $divOut){
-                                  $out .= '<div style="
-                                            border-right: 1px solid black;
-                                            display: table-cell;
-                                            "><p></p><p>|</p></div>';
+                                 $out .= '<div class="ELVrawDiv2">
+                                              <p></p>
+                                              <p>|</p>
+                                          </div>';
                              }else{
-                                  $out .= '<div style="
-                                            display: table-cell;
-                                            "><p>|</p></div>';
+                                 $out .= '<div class="ELVrawDiv3">
+                                              <p>|</p>
+                                          </div>';
                              }
                         }else{
-                            $out .= '<div style="
-                                                border-left: 1px solid black;
-                                                height: 10px;
-                                                display: table-cell;
-                                                "></div>';
+                            $out .= '<div class="ELVrawDiv4">
+                                    </div>';
                         }
                     }
                     $out .= '</div>';
          $out .= '</td>
                 </tr>
               </table>';
-              $out .= '<div style="width: 96%;
-                               
-                               margin-left: auto;
-                               margin-right: auto;
-                               border-top: 1px solid black;"
-                               ></div>';
+         $out .= '<div class="ELVrawDiv5">
+                  </div>';
             return $out;
     }
 
     public function addOneHouer($time){
         //ex. in string "07:00"
-
         //get two first and do to int
          $first = substr($time, -5, 1);
          $secound = substr($time, -4, 1);
@@ -161,8 +137,7 @@ class EmptyLineView{
         }
 
         //Make string to float
-         $time = (float)$time;
-
+        $time = (float)$time;
         return $time;
     }
 }

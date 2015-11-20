@@ -30,19 +30,15 @@ class TimeLineView{
                     <div>
                         $lineHTML
                     </div>
-
                     <div>
                         $timeLineEventHTML
                     </div>
-
                     <div class'pull-left'>
                         $eventFormHTML
                     </div>
-
                     <div class'pull-right'>
                         $listEventsFormHTML
                     </div>
-
                 </div>";
     }
 }

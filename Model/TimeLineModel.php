@@ -54,6 +54,22 @@ class TimeLineModel {
         }
     }
 
+    public function sortEventArray($events){
+        //sort obj array for print out right
+        usort($events, function ($item1, $item2) {
+             $ts1 = strtotime($item1->getStartTime());
+             $ts2 = strtotime($item2->getStartTime());
+              if ($ts1 == $ts2) {
+                  return 0;
+              }
+              return ($ts1 < $ts2) ? -1 : 1;
+           });
+        return $events;
+    }
+
+
+
+    //Session
     //Set
     public function saveSession($obj) {
 		$this->sessionHandeler->saveSession($obj);

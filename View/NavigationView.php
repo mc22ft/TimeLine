@@ -12,7 +12,6 @@ namespace view;
  */
 class NavigationView
 {
-
     private static $TimeLine = "TimeLine";
     private static $id = "id";
 

@@ -66,29 +66,24 @@ class SendStartStopTimeView{
     //Register form
     private function generateRegisterFormHTML($message) {
 		return "<form class='text-center' action='' method='post' enctype='multipart/form-data'>
-				
 					<legend>Register a new TimeLine - Write start time and stop time</legend>
                     <p style='color:red;' id='".self::$messageId."'>$message</p>
-                   
-                <div class='row'>
-
-                    <div class='col-xs-4'>
-                        <label for='".self::$date."'>Date</label>
-					    <input type='text' class='form-control input-sm' id='".self::$date."' name='".self::$date."' value='".$this->getRequestDate()."' readonly>
-                    </div>
-                    <div class='col-xs-4'>
-                        <label for='".self::$startTime."'>Start Time</label>
-					    <input type='text' class='form-control input-sm' id='".self::$startTime."' name='".self::$startTime."' value>
-                    </div>
-                    <div class='col-xs-4'>
-					    <label for='".self::$stopTime."'>Stop Time</label>
-					    <input type='text'class='form-control input-sm'  id='".self::$stopTime."' name='".self::$stopTime."' value>
-                    </div>
-                 </div> 
-               
+                    <div class='row'>
+                        <div class='col-xs-4'>
+                            <label for='".self::$date."'>Date</label>
+					        <input type='text' class='form-control input-sm' id='".self::$date."' name='".self::$date."' value='".$this->getRequestDate()."' readonly>
+                        </div>
+                        <div class='col-xs-4'>
+                            <label for='".self::$startTime."'>Start Time</label>
+					        <input type='text' class='form-control input-sm' id='".self::$startTime."' name='".self::$startTime."' value>
+                        </div>
+                        <div class='col-xs-4'>
+					        <label for='".self::$stopTime."'>Stop Time</label>
+					        <input type='text'class='form-control input-sm'  id='".self::$stopTime."' name='".self::$stopTime."' value>
+                        </div>
+                     </div> 
                 <div class='buttom'>
                     <input class='btn-sm btn-primary' type='submit' id='submit' name='".self::$doRegistration."' value='Make TimeLine'>
-                    
                 </div>
 			</form>
 		";

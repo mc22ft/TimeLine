@@ -26,12 +26,121 @@
     color:black;
 }
 
+/*EmtyLineView css*/
+
+.ELVh2 {
+    text-align: center;
+}
+.ELVtable {
+    width:100%
+}
+.ELVtableDiv1 {
+    width: 96%;
+    margin:auto;
+    display: table;
+    margin-bottom: -5px;
+    table-layout: fixed;
+}
+.ELVtableDiv2 {
+    display: table-cell;
+}
+.ELVtableP1 {
+    margin-left: 50%
+}
+.ELVtableP2 {
+    margin-left: -13px;
+}
+.ELVrawDiv1 {
+    width: 96%;
+    margin: auto;
+    display: table;
+    table-layout: fixed;
+}
+.ELVrawDiv2 {
+    border-right: 1px solid black;
+    display: table-cell;
+}
+.ELVrawDiv3 {
+    display: table-cell;
+}
+.ELVrawDiv4 {
+    border-left: 1px solid black;
+    height: 10px;
+    display: table-cell;
+}
+.ELVrawDiv5 {
+    width: 96%;                    
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid black;
+}
+
+/*TimeLineView css*/
+
+.TLVtable {
+    width:100%; border-spacing: 0;
+    border-collapse: separate !important;
+}
+
+.TLVtableDiv1 {
+    width: 96%;
+    margin:auto;
+    display: table;
+    table-layout: fixed;
+    margin-bottom: 89px;
+}
+.TLVtableDiv2 {
+    width: 96%;
+    margin:auto;
+    display: table;
+    table-layout: fixed;
+    margin-bottom: 33px;
+}
+.TLVtableDiv3 {
+    background-color: #5bc0de;
+    display: table-cell;
+    border-radius: 6px 0px 0px 6px;
+    -moz-border-radius: 6px 0px 0px 6px;
+    -webkit-border-radius: 6px 0px 0px 6px;
+    border: 1px solid #555;
+    border-right: 0;
+}
+.TLVtableP1 {
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+}
+.TLVtableP2 {
+    color: #333;    
+    text-align: center;
+}
+.TLVtableDiv4 {
+    background-color: #5bc0de;
+    display: table-cell;
+    border-radius: 0px 6px 6px 0px;
+    -moz-border-radius: 0px 6px 6px 0px;
+    -webkit-border-radius: 0px 6px 6px 0px;
+    border: 1px solid #555;
+    border-left: 0;
+}
+.TLVtableDiv5 {
+    background-color: #5bc0de;
+    display: table-cell;
+    border: 1px solid #555;
+    border-left: 0;
+    border-right: 0;
+}
+.TLVtableDiv6 {
+    display: table-cell;
+}
+.TLVtableDiv7 {
+
+}
+
+
 /*Calendar css*/
 
 body {
-   
-
-
 			/*background: #efefef;*/
 		}
 	

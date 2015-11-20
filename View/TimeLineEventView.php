@@ -23,50 +23,25 @@ class TimeLineEventView{
         $divOut = $divOut * 2;
         
         //Build up rawTimeLine
-        $out = '<table style="width:100%; border-spacing: 0;
-                        border-collapse: separate !important;">
+        $out = '<table class="TLVtable">
                     <tr>
                         <td>';
                     //set upp times
-                    
-                    
                     $start =  $timeObj->getStartTime();
                     $stop =  $timeObj->getStopTime();
                     $events = $this->model->getAllEvent();
 
                     if (empty($events))
                     {
-                        $out .= '<div style="
-                                    width: 96%;
-                                    margin:auto;
-                                    display: table;
-                                    table-layout: fixed;
-                                    margin-bottom: 89px;
-                                    ">';
+                        $out .= '<div class="TLVtableDiv1">';
                     }else
                     {
-                        $out .= '<div style="
-                                    width: 96%;
-                                    margin:auto;
-                                    display: table;
-                                    table-layout: fixed;
-                                    margin-bottom: 33px;
-                                    ">';
+                        $out .= '<div class="TLVtableDiv2">';
                     }
-                    
-                    
-                     
                      //var_dump($events);
                      //sort obj array for print out right
-                     usort($events, function ($item1, $item2) {
-                          $ts1 = strtotime($item1->getStartTime());
-                          $ts2 = strtotime($item2->getStartTime());
-                           if ($ts1 == $ts2) {
-                               return 0;
-                           }
-                           return ($ts1 < $ts2) ? -1 : 1;
-                        });
-                   
+                    $events = $this->model->sortEventArray($events);
+
                      //Array starts at zero
                      $indexCount = 0;
                      $x = 1;
@@ -75,7 +50,6 @@ class TimeLineEventView{
                              //for id
                              $floatStartTime += 0.5;
                              $printEmpty = true;
-
                              //First time events is empty?
                              if(!count($events) == 0){
                                 //Here is events set
@@ -84,61 +58,31 @@ class TimeLineEventView{
                                     $event = $events[$indexCount];
                                     //get array width id
                                     $eventArr = $event->getDivIdArray();
-                                    //var_dump($event->getDivIdArray());
-                                    
                                     //Looking for fist hit false empty div
                                     if($floatStartTime == $eventArr[0]){
                                         //Spinn at divId in event object
-
                                         //Last element for design
                                         $lastDiv = end($eventArr);
-
 
                                         foreach ($eventArr as $divId){
                                             //first div out if hit
                                             if($floatStartTime == $divId){
                                                 $start = $event->getStartTime();
                                                 $stop = $event->getStopTime();
-                                                $out .= '<div class="" style="
-
-                                                    background-color: #5bc0de;
-                                                    display: table-cell;
-                                                    border-radius: 6px 0px 0px 6px;
-                                                    -moz-border-radius: 6px 0px 0px 6px;
-                                                    -webkit-border-radius: 6px 0px 0px 6px;
-                                                    border: 1px solid #555;
-                                                    border-right: 0;
-                                                    "><p  style="
-                                                        color: #333;
-                                                        text-align: center;
-                                                        margin-top: 10px;
-                                                    ">'.$start.'</p><p  style="
-                                                        color: #333;
-                                                        text-align: center;
-                                                        
-                                                    ">'.$stop.'</p></div>';
+                                                $out .= '<div class="TLVtableDiv3">
+                                                            <p class="TLVtableP1">'.$start.'</p>
+                                                            <p class="TLVtableP2">'.$stop.'</p>
+                                                         </div>';
                                             }else{
                                                 //Last div
                                                 if ($lastDiv == $divId)
                                                 {
-                                                	$out .= '<div class="" style="
-                                                    background-color: #5bc0de;
-                                                    display: table-cell;
-                                                    border-radius: 0px 6px 6px 0px;
-                                                    -moz-border-radius: 0px 6px 6px 0px;
-                                                    -webkit-border-radius: 0px 6px 6px 0px;
-                                                    border: 1px solid #555;
-                                                    border-left: 0;
-                                                    "></div>';
+                                                	$out .= '<div class="TLVtableDiv4"">
+                                                             </div>';
                                                 }else
                                                 {
-                                                    $out .= '<div class="" style="
-                                                    background-color: #5bc0de;
-                                                    display: table-cell;
-                                                    border: 1px solid #555;
-                                                    border-left: 0;
-                                                    border-right: 0;
-                                                    "></div>';
+                                                    $out .= '<div class="TLVtableDiv5">
+                                                             </div>';
                                                 }
                                                $floatStartTime += 0.5;
                                                $x++;
@@ -152,9 +96,9 @@ class TimeLineEventView{
                              
                              //Print out empty div
                              if($printEmpty){
-                                 $out .= '<div class="empty" style="
-                                            display: table-cell;
-                                            "><p></p></div>';
+                                 $out .= '<div class="TLVtableDiv6">
+                                              <p></p>
+                                          </div>';
                              }
                          }
                     $out .= '</div>';
@@ -164,7 +108,6 @@ class TimeLineEventView{
     public function remakeTimeToFloat($time){
         //REMOVE : TO . 
         $time = str_replace(":", ".", $time);
-
         //ZERO RULE
         if(strlen($time) == 4){ //true add zero at beginngin
             $time = "0" . $time;
