@@ -4,7 +4,8 @@ namespace model;
 
 require_once("model/Event.php");
 
-//Handle TimeLine and Events and saves och gets session
+//Handle TimeLine and Events and make sure that they work together
+//Handle session (get set)
 class TimeLineModel {
     
     private $timeLine;
@@ -44,7 +45,6 @@ class TimeLineModel {
         {   
         	if ($event->getStartTime() == $idEvent)
             {
-                //var_dump($idEvent);
                 //Removes event 
                 unset($events[$indexCount]);
                 $events = array_values($events);
@@ -66,8 +66,6 @@ class TimeLineModel {
            });
         return $events;
     }
-
-
 
     //Session
     //Set

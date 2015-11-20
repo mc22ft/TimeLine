@@ -27,7 +27,6 @@ class DateTimeController
     }
 
     public function doDateTimeSetUp(){
-        
         //If user set a date/time
         if($this->navigationView->userWhantsToSeeCalendar()){
             
@@ -41,7 +40,6 @@ class DateTimeController
         }
     }
 
-
     public function getView(){
         if ($this->timeLineView != null) {
 			return  $this->timeLineView;
@@ -50,5 +48,4 @@ class DateTimeController
 			return $this->dateTimeView;
 		}
     }
-    
 }

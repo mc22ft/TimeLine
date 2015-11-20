@@ -8,7 +8,6 @@ require_once("view/NavigationView.php");
 require_once("model/TimeLineModel.php");
 require_once("model/SessionHandeler.php");
 
-
 /**
  * MasterController short summary.
  *
@@ -61,6 +60,5 @@ class MasterController
     //return view to output
     public function generateOutput() {
 		return $this->view;
-
 	}
 }

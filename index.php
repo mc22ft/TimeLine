@@ -4,9 +4,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-//phpinfo();
-
-
 //INCLUDE THE FILES NEEDED...
 
 require_once("controller\MasterController.php");
@@ -25,5 +22,6 @@ $view = $mc->generateOutput();
 
 //Create HTML
 $htmlView = new \view\HTMLView();
+
 //Add HTML view 
 echo $htmlView->getHTMLPage($view->getHTML());

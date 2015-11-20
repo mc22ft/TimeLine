@@ -27,15 +27,13 @@ class TimeLineController{
     public function __construct(\model\TimeLineModel $model){
         $this->model = $model;
         $this->navigationView = new \view\NavigationView();
-        
     }
 
     public function doTimeLineSetUp(){
         
         //in TimeLine
         if($this->navigationView->userWhantsToSeeTimeLine()){
-                
-           
+
                 //Begin set up model
                 //Save to line to model
                 $lineObj = $this->model->getSession();
@@ -63,22 +61,13 @@ class TimeLineController{
                 if($sendEvent->userPressedSendEvent()){
 
                     $newEvent = $sendEvent->getNewEvent();
-
                     $sendEvent->doValiadtion($newEvent);
 
                     if ($sendEvent->getPassedValidation())
                     {
-                       //var_dump($newEvent);
                     	$this->model->addEvent($newEvent);
                     }
-                    
-                   //Get event from view
-                    //$newEvent = $sendEvent->getNewEvent();
-                    
-                     //var_dump($newEvent);
-                    //save it to model?
-                    
-                    //$this->model->addEvent($newEvent);
+
                     //Add to session in model
                     $this->model->saveSelectedSession();
                     
@@ -89,10 +78,8 @@ class TimeLineController{
                 
                 //Output
                 $this->timeLineView = new \view\TimeLineView($lineView, $TimeLineEventView, $sendEvent, $listEvents);
-        
         }
     }
-
 
     public function getView(){
         if ($this->timeLineView != null) {
@@ -102,5 +89,4 @@ class TimeLineController{
 			return $this->dateTimeView;
 		}
     }
-    
 }
