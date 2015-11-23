@@ -22,7 +22,7 @@ class MasterController
     private $model;
 
     public function __construct(){  
-        $session = new \model\SessionHandeler("ObjSessionHolder");
+        $session = new \model\SessionHandeler("ObjSessionHolder", "IdSession");
         $this->model = new \model\TimeLineModel($session);
         $this->navigationView = new \view\NavigationView();
     }

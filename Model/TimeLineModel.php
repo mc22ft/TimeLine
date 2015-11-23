@@ -81,8 +81,9 @@ class TimeLineModel {
 	}
     //save
     public function saveSelectedSession() {
-		$this->sessionHandeler->saveSelectedSession($this->timeLine);
+		$this->sessionHandeler->saveSession($this->timeLine);
 	}
+   
     //get
     public function getSession() {
 		return $this->sessionHandeler->getSession();

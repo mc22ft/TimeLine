@@ -4,6 +4,11 @@ namespace view;
 
 class ListEvents {
     
+    /**
+     * These names are used in $_POST
+     * @var string
+     */  
+
     private static $startTime = "ListEvents::StartTime";
 	private static $stopTime = "ListEvents::StopTime";
     private static $text = "ListEvents::Text";

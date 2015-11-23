@@ -6,6 +6,11 @@ require_once("View/ListEvents.php");
 
 class SendEventView{
 
+    /**
+     * These names are used in $_POST
+     * @var string
+     */  
+
     private static $messageId = "SendEventView::Message";
 	private static $startTime = "SendEventView::StartTime";
 	private static $stopTime = "SendEventView::StopTime";
@@ -14,7 +19,6 @@ class SendEventView{
     private static $doClearEvents = "SendEventView::ClearEvent";
     private static $doNewTimeLine = "SendEventView::NewTimeLine";
     private static $color = "SendEventView::Color";
-
 
     private $message;
     private $passedValidation = false;
@@ -171,7 +175,6 @@ class SendEventView{
         }
         //to float
         $time = (float)$time;
-        //var_dump($time);
         return $time;
     }
 
@@ -206,7 +209,6 @@ class SendEventView{
     //For Houer and not half houers any more...
     private function timeValidation($time){
         $t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[3][0])$#', $time);
-        //$t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[0][0])$#', $time);
         if($t == 0){
             return TRUE;
         }

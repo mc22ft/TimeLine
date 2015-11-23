@@ -98,7 +98,6 @@ class SendStartStopTimeView{
              if(empty($_POST[self::$date])){
                  $this->message = "You have to set a date first";
              }else{
-                
                  $this->sameDayValidation();
                  $this->timeOutOfBounds();
                  $this->startTimeValidation();
@@ -111,70 +110,70 @@ class SendStartStopTimeView{
     }
 
     private function sameDayValidation(){
-                $start = $this->getStartTime();
-                $stop = $this->getStopTime();
-                $intStartTime = $this->getIntTimeForValidation($start);
-                $intStopTime = $this->getIntTimeForValidation($stop);
-                if($intStartTime <= 0 || $intStartTime == $intStopTime){
-                    //fail
-                    $this->message= "Start time not right";
-                }
-                if($intStopTime > 23 || $intStopTime == $intStartTime){
-                    //fail
-                    $this->message = "Stopp time not right";
-                }
+        $start = $this->getStartTime();
+        $stop = $this->getStopTime();
+        $intStartTime = $this->getIntTimeForValidation($start);
+        $intStopTime = $this->getIntTimeForValidation($stop);
+        if($intStartTime <= 0 || $intStartTime == $intStopTime){
+            //fail
+            $this->message= "Start time not right";
+        }
+        if($intStopTime > 23 || $intStopTime == $intStartTime){
+            //fail
+            $this->message = "Stopp time not right";
+        }
     }
 
     //If intime is out of bounds
     private function timeOutOfBounds(){
-                if(strtotime($this->getStartTime()) < strtotime($this->getStartTime()) ||
-                        strtotime($this->getStopTime()) > strtotime($this->getStopTime())){
-                    $this->message = "Event time is set out of timeline";
-                }
+        if(strtotime($this->getStartTime()) < strtotime($this->getStartTime()) ||
+                strtotime($this->getStopTime()) > strtotime($this->getStopTime())){
+            $this->message = "Event time is set out of timeline";
+        }
 
-                if(strtotime($this->getStartTime()) >= strtotime($this->getStopTime())){
-                    $this->message = "Stop time is wrong";
-                }
+        if(strtotime($this->getStartTime()) >= strtotime($this->getStopTime())){
+            $this->message = "Stop time is wrong";
+        }
     }
 
     private function getIntTimeForValidation($time){
-                if(strlen($time) == 4){ 
-                    //true add zero at beginngin
-                    $time = "0" . $time;
-                 }
-                $first = substr($time, -5, 1);
-                $secound = substr($time, -4, 1);
-                $time = $first . $secound;
-                $intTime = (int)$time;
-                return $intTime;
+        if(strlen($time) == 4){ 
+            //true add zero at beginngin
+            $time = "0" . $time;
+            }
+        $first = substr($time, -5, 1);
+        $secound = substr($time, -4, 1);
+        $time = $first . $secound;
+        $intTime = (int)$time;
+        return $intTime;
     }
 
     private function startTimeValidation(){
-                if(empty($_POST[self::$startTime])){
-                    $this->message = "Start time is missing";
-                }else{
-                    //Valedering time
-                    if($this->timeValidation($_POST[self::$startTime])){
-                        $this->message = "Start time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
-                    }
-                }
+        if(empty($_POST[self::$startTime])){
+            $this->message = "Start time is missing";
+        }else{
+            //Valedering time
+            if($this->timeValidation($_POST[self::$startTime])){
+                $this->message = "Start time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
+            }
+        }
     }
 
     private function stopTimeValidation(){
-                if(empty($_POST[self::$stopTime])){
-                    if(!empty($this->message)){
-                        $this->message .= "<br/>";
-                    }
-                     $this->message .= "Stop time is missing";
-                }else{
-                    //Valedering time
-                    if(!empty($this->message)){
-                        $this->message .= "<br/>";
-                    }
-                     if($this->timeValidation($_POST[self::$stopTime])){
-                         $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
-                    }
-                }
+        if(empty($_POST[self::$stopTime])){
+            if(!empty($this->message)){
+                $this->message .= "<br/>";
+            }
+                $this->message .= "Stop time is missing";
+        }else{
+            //Valedering time
+            if(!empty($this->message)){
+                $this->message .= "<br/>";
+            }
+                if($this->timeValidation($_POST[self::$stopTime])){
+                    $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
+            }
+        }
     }
 
     //Houer only
