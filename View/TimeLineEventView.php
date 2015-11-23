@@ -63,25 +63,39 @@ class TimeLineEventView{
                                         //Spinn at divId in event object
                                         //Last element for design
                                         $lastDiv = end($eventArr);
-
+                                        $arrCount = count($eventArr);
+                                        
                                         foreach ($eventArr as $divId){
                                             //first div out if hit
                                             if($floatStartTime == $divId){
                                                 $start = $event->getStartTime();
                                                 $stop = $event->getStopTime();
-                                                $out .= '<div class="TLVtableDiv3">
-                                                            <p class="TLVtableP1">'.$start.'</p>
-                                                            <p class="TLVtableP2">'.$stop.'</p>
-                                                         </div>';
+                                                $color = $event->getEventColor();
+                                                
+
+                                                if ($arrCount == 1){
+                                                	$out .= '<div class="TLVtableDiv30 TLVtableDiv'.$color.'">
+                                                                <p class="TLVtableP1">'.$start.'</p>
+                                                                <p class="TLVtableP2">'.$stop.'</p>
+                                                             </div>';
+                                                }else{
+                                                    $out .= '<div class="TLVtableDiv3 TLVtableDiv'.$color.'">
+                                                                <p class="TLVtableP1">'.$start.'</p>
+                                                                <p class="TLVtableP2">'.$stop.'</p>
+                                                             </div>';
+                                                }
+                                                
+
+                                                
                                             }else{
                                                 //Last div
                                                 if ($lastDiv == $divId)
                                                 {
-                                                	$out .= '<div class="TLVtableDiv4"">
+                                                	$out .= '<div class="TLVtableDiv4 TLVtableDiv'.$color.'">
                                                              </div>';
                                                 }else
                                                 {
-                                                    $out .= '<div class="TLVtableDiv5">
+                                                    $out .= '<div class="TLVtableDiv5 TLVtableDiv'.$color.'">
                                                              </div>';
                                                 }
                                                $floatStartTime += 0.5;

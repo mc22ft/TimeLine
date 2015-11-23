@@ -13,15 +13,19 @@ class SendEventView{
     private static $doEvent = "SendEventView::Event";
     private static $doClearEvents = "SendEventView::ClearEvent";
     private static $doNewTimeLine = "SendEventView::NewTimeLine";
-    
+    private static $color = "SendEventView::Color";
+
+
     private $message;
     private $passedValidation = false;
     private $model;
+    private $navigation;
     private $event;
     private $timeValidation;
 
-    public function __construct(\model\TimeLineModel $model){
+    public function __construct(\model\TimeLineModel $model, \view\NavigationView $navigationView){
         $this->model = $model;
+        $this->navigation = $navigationView;
         $this->timeValidation = new \view\ListEvents($this->model);
         $_SESSION["message"] = "";
     }
@@ -30,7 +34,7 @@ class SendEventView{
         $this->message = $_SESSION["message"];
 
         //clear events
-        if($this->userPressedClearEvent()){
+        if($this->navigation->userPressedClearEvent()){
             $this->message = "All events is removed from timeline";
         }
       
@@ -39,7 +43,7 @@ class SendEventView{
 
     public function doValiadtion($event){
 
-         if($this->userPressedSendEvent()){
+         if($this->navigation->userPressedSendEvent()){
              $this->isEventSetRight($event);
              $this->startTimeValidation($event);
              $this->stopTimeValidation($event);
@@ -59,7 +63,8 @@ class SendEventView{
         return new \model\Event(
                         $this->getStartTime(),
                         $this->getStopTime(),
-                        $this->getEventText());
+                        $this->getEventText(),
+                        $this->getEventColor());
     }
 
      //HTML
@@ -80,12 +85,21 @@ class SendEventView{
 					        <input type='text' class='form-control input-sm' id='".self::$text."' name='".self::$text."'  placeholder='Event Text' value>
                         </div>
 
-                        <div class='col-xs-6'>
+                        <div class='col-xs-2'>
+                            <p class='pull-left SEVformP'>Color</p>
+					        <Input class='blue' type = 'Radio'  id='".self::$color."' name='".self::$color."' value='Blue'>
+                            <Input class='green' type = 'Radio'  id='".self::$color."' name='".self::$color."' value='Green'>
+                            <Input class='gray' type = 'Radio' id='".self::$color."'  name='".self::$color."' value='Gray'>
+                        </div>    
+                        
+                
+                        <div class='col-xs-4'>
                             <input type='submit' class='btn-sm btn-primary' id='submit' name='".self::$doEvent."' value='Set Event'>
                             <input type='submit' class='btn-sm btn-warning' id='submit1' name='".self::$doClearEvents."' value='Clear Events'>
                             <input type='submit' class='btn-sm btn-danger' id='submit1' name='".self::$doNewTimeLine."' value='Start Over'>
                          </div>
                     </div>
+                    <legend class='SEVlegend'></legend>
 			    </form>";
     }
 
@@ -167,7 +181,7 @@ class SendEventView{
         }else{
             //Valedering time
             if($this->timeValidation($event->getStartTime())){
-                $this->message = "Start time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
+                $this->message = "Start time is wrong. Only hours like: 7:00, 8:00, 8:30, 15:00 18:00, 18:30";
             }
         }
     }
@@ -184,7 +198,7 @@ class SendEventView{
                 $this->message .= "<br/>";
             }
                 if($this->timeValidation($event->getStopTime())){
-                    $this->message .= "Stop time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
+                    $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 8:30, 15:00 18:00, 18:30";
             }
         }
     }
@@ -198,31 +212,6 @@ class SendEventView{
         }
         return FALSE;
     }
-
-    //bool
-    public function userPressedSendEvent() {
-		if(isset($_POST[self::$doEvent])){
-		    return TRUE;
-		} 
-	    return FALSE;
-	}
-    //bool
-    public function userPressedClearEvent() {
-		if(isset($_POST[self::$doClearEvents])){
-		    return TRUE;
-		} 
-	    return FALSE;
-	}
-    //bool / redirect
-    public function userPressedNewTimeLine() {
-		if(isset($_POST[self::$doNewTimeLine])){
-            $this->model->unsetSession();
-            $actual_link = "http://" . $_SERVER['HTTP_HOST'];
-		    header("Location: $actual_link");
-		    return TRUE;
-		} 
-	    return FALSE;
-	}
 
     private function getStartTime() {
 		if (isset($_POST[self::$startTime]))
@@ -239,6 +228,12 @@ class SendEventView{
     private function getEventText() {
 		if (isset($_POST[self::$text]))
 			return trim($_POST[self::$text]);
+		return "";
+	}
+
+    private function getEventColor() {
+		if (isset($_POST[self::$color]))
+			return trim($_POST[self::$color]);
 		return "";
 	}
 }

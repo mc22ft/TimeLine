@@ -29,4 +29,12 @@ class SessionHandeler {
     public function delete() {
 		unset($_SESSION[$this->sessionTimeLine]);
 	}
+
+    public function isSessionSet() {
+	    if (isset($_SESSION[$this->sessionTimeLine]))
+        {
+            return true;
+        }
+        return false;
+	}
 }

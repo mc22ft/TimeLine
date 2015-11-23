@@ -155,7 +155,7 @@ class SendStartStopTimeView{
                 }else{
                     //Valedering time
                     if($this->timeValidation($_POST[self::$startTime])){
-                        $this->message = "Start time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
+                        $this->message = "Start time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
                     }
                 }
     }
@@ -172,7 +172,7 @@ class SendStartStopTimeView{
                         $this->message .= "<br/>";
                     }
                      if($this->timeValidation($_POST[self::$stopTime])){
-                         $this->message .= "Stop time is wrong. Only hours like: 7:00, 08:00, 08:30, 7:00, 15:00 18:00, 18:30";
+                         $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
                     }
                 }
     }

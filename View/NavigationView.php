@@ -14,6 +14,10 @@ class NavigationView
 {
     private static $TimeLine = "TimeLine";
     private static $id = "id";
+    private static $doDeleteEvent = "ListEvents::Delete";
+    private static $doEvent = "SendEventView::Event";
+    private static $doClearEvents = "SendEventView::ClearEvent";
+    private static $doNewTimeLine = "SendEventView::NewTimeLine";
 
     //Url empty
     public function inCalendar(){
@@ -43,4 +47,33 @@ class NavigationView
 		}
 		return false;
     }
+
+    //bool
+    public function userPressedSendEvent() {
+		if(isset($_POST[self::$doEvent]) == true){
+		    return TRUE;
+		} 
+	    return FALSE;
+	}
+    //bool
+    public function userPressedClearEvent() {
+		if(isset($_POST[self::$doClearEvents]) == true){
+		    return TRUE;
+		} 
+	    return FALSE;
+	}
+    //bool
+    public function userPressedNewTimeLine() {
+		if(isset($_POST[self::$doNewTimeLine]) == true){
+		    return TRUE;
+		} 
+	    return FALSE;
+	}
+    //bool
+    public function userPressedDeleteEvent() {
+		if(isset($_POST[self::$doDeleteEvent]) == true){
+		    return TRUE;
+		} 
+	    return FALSE;
+	}
 }

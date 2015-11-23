@@ -69,11 +69,4 @@ class ListEvents {
 			return trim($_POST[self::$startTime]);
 		return "";
 	}
-    //bool
-    public function userPressedDeleteEvent() {
-		if(isset($_POST[self::$doDeleteEvent])){
-		    return TRUE;
-		} 
-	    return FALSE;
-	}
 }

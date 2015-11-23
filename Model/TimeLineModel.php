@@ -67,6 +67,13 @@ class TimeLineModel {
         return $events;
     }
 
+    //Redirect
+    public function restartApp() {
+        $this->unsetSession();
+        $actual_link = "http://" . $_SERVER['HTTP_HOST'];
+        header("Location: $actual_link");
+	}
+
     //Session
     //Set
     public function saveSession($obj) {
@@ -84,5 +91,9 @@ class TimeLineModel {
     //Delete session
     public function unsetSession() {
 		$this->sessionHandeler->delete();
+	}
+    //get
+    public function isSessionSet() {
+		return $this->sessionHandeler->isSessionSet();
 	}
 }

@@ -34,6 +34,9 @@ class TimeLineController{
         //in TimeLine
         if($this->navigationView->userWhantsToSeeTimeLine()){
 
+                //session check
+            if ($this->model->isSessionSet())
+            {
                 //Begin set up model
                 //Save to line to model
                 $lineObj = $this->model->getSession();
@@ -41,24 +44,25 @@ class TimeLineController{
                 
                 //SetUp view
                 $lineView = new \view\EmptyLineView($this->model);
-                $sendEvent = new \view\SendEventView($this->model);
+                $sendEvent = new \view\SendEventView($this->model, $this->navigationView);
                 $listEvents = new \view\ListEvents($this->model);
 
                 //Remove 1 event from TimeLine obj
-                if($listEvents->userPressedDeleteEvent()){
+                if($this->navigationView->userPressedDeleteEvent()){
                     $idTime = $listEvents->getStartTime();
                     $this->model->removeEvent($idTime);
                 }
 
                 //Remove all events from TimeLine obj
-                if($sendEvent->userPressedClearEvent()){
+                if($this->navigationView->userPressedClearEvent()){
                     $this->model->removeAllEvents();
                 }
 
-                if($sendEvent->userPressedNewTimeLine()){
+                if($this->navigationView->userPressedNewTimeLine()){
                     //redirect to first page
+                    $this->model->restartApp();
                 }
-                if($sendEvent->userPressedSendEvent()){
+                if($this->navigationView->userPressedSendEvent()){
 
                     $newEvent = $sendEvent->getNewEvent();
                     $sendEvent->doValiadtion($newEvent);
@@ -78,6 +82,13 @@ class TimeLineController{
                 
                 //Output
                 $this->timeLineView = new \view\TimeLineView($lineView, $TimeLineEventView, $sendEvent, $listEvents);
+
+            }else
+            {
+                //Session timeout
+                $this->model->restartApp();
+            }
+            
         }
     }
 

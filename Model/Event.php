@@ -7,13 +7,15 @@ class Event{
     private $startTime;
     private $stopTime;
     private $text;
+    private $color;
     //Holds <div> id on event view
     private $divIdArray = array();
    
-    public function __construct($start, $stop, $text){
+    public function __construct($start, $stop, $text, $color){
         $this->startTime = $start;
         $this->stopTime = $stop;
         $this->text = $text;
+        $this->color = $color;
     }
 
     public function setDivIdToArray($divId){
@@ -31,5 +33,8 @@ class Event{
     }
     public function getEventText(){
         return $this->text;
+    }               
+    public function getEventColor(){
+        return $this->color;
     }
 }
