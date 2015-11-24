@@ -44,16 +44,13 @@ class SendEventView{
     }
 
     public function doValiadtion($event){
+        $this->isEventSetRight($event);
+        $this->startTimeValidation($event);
+        $this->stopTimeValidation($event);
+        $_SESSION["message"] = $this->message;
 
-         if($this->navigation->userPressedSendEvent()){
-             $this->isEventSetRight($event);
-             $this->startTimeValidation($event);
-             $this->stopTimeValidation($event);
-             $_SESSION["message"] = $this->message;
-
-             if(empty($this->message)){
-                 $this->passedValidation = true;
-             }
+        if(empty($this->message)){
+            $this->passedValidation = true;
         }
     }
 

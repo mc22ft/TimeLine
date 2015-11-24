@@ -35,6 +35,7 @@ class DateTimeController
         //TimeLine sent?
         if ($this->navigationView->userPressedDoRawTimeLine())
         {
+            //get new timeline
             $newTimeLine = $startStopTime->getTimeLine();
             $startStopTime->doValiadtion($newTimeLine);
 
@@ -51,14 +52,9 @@ class DateTimeController
         if($this->navigationView->userWhantsToSeeCalendar()){
             
             //return: calender och start time and stop time
-            
-
             //First side view
             $this->dateTimeView = new \view\DateTimeView($calendarView, $startStopTime);
         }
-
-
-        
     }
 
     public function getView(){
