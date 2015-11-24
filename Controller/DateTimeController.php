@@ -27,17 +27,38 @@ class DateTimeController
     }
 
     public function doDateTimeSetUp(){
+
+        //SetUp
+        $calendarView = new \view\CalendarView();
+        $startStopTime = new \view\SendStartStopTimeView($this->model);
+
+        //TimeLine sent?
+        if ($this->navigationView->userPressedDoRawTimeLine())
+        {
+            $newTimeLine = $startStopTime->getTimeLine();
+            $startStopTime->doValiadtion($newTimeLine);
+
+            if ($startStopTime->passedValidation())
+            {
+                $this->model->setSelectedTimeLine($newTimeLine);
+                //Add to session in model
+                $this->model->saveSelectedSession();
+                $startStopTime->redirect();
+            }
+        }
+        
         //If user set a date/time
         if($this->navigationView->userWhantsToSeeCalendar()){
             
             //return: calender och start time and stop time
-            //SetUp
-            $calendarView = new \view\CalendarView();
-            $startStopTime = new \view\SendStartStopTimeView($this->model);
+            
 
             //First side view
             $this->dateTimeView = new \view\DateTimeView($calendarView, $startStopTime);
         }
+
+
+        
     }
 
     public function getView(){

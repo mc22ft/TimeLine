@@ -45,7 +45,8 @@
     display: table-cell;
 }
 .ELVtableP1 {
-    margin-left: 50%
+    /*margin-left: 50%*/
+    margin: 0 -15px -5px;
 }
 .ELVtableP2 {
     margin-left: -13px;

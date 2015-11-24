@@ -23,34 +23,36 @@ class SendStartStopTimeView{
 
     public function __construct(\model\TimeLineModel $model){
         $this->model = $model;
+        $_SESSION["message"] = "";
     }
      /**
 	 * @return boolean true if user did try to make timeline
 	 */
-	public function userPressedMakeTimeLine() {
-		if(isset($_POST[self::$doRegistration])){
-		    return TRUE;
-		} 
-	    return FALSE;
-	}
+    //public function userPressedMakeTimeLine() {
+    //    if(isset($_POST[self::$doRegistration])){
+    //        return TRUE;
+    //    } 
+    //    return FALSE;
+    //}
 
     public function getStartStopTime(){
         //set message to empty evry time
-        $message = "";
-        $this->doValiadtion();
+        $this->message = $_SESSION["message"];
+        //$this->doValiadtion();
 
         //if passed validation - redirect and catch post in some other view
         if($this->passedValidation == true){
-            $query = "TimeLine";
+            //$query = "TimeLine";
             //save start stop times in session before redirect
-            $this->model->saveSession($this->getTimeLine());
-            $this->redirect($query);
+            //$this->model->saveSession($this->getTimeLine());
+            //$this->redirect();
         }
         
         return $this->generateRegisterFormHTML($this->message);
     }
 
-    private function redirect($query){
+    public function redirect(){
+        $query = "TimeLine";
         $actual_link = "http://" . $_SERVER['HTTP_HOST'];
 		header("Location: $actual_link"."?".$query);
     }
@@ -89,29 +91,31 @@ class SendStartStopTimeView{
 		";
     }
 
-    public function passedValidation($passed){
-        $this->passedValidation = true;
+    public function passedValidation(){
+        return $this->passedValidation;
     }
 
-    public function doValiadtion(){
-         if($this->userPressedMakeTimeLine()){
-             if(empty($_POST[self::$date])){
+    public function doValiadtion($TimeLine){
+         //if($this->userPressedMakeTimeLine()){
+
+             if(empty($TimeLine->getDate())){
                  $this->message = "You have to set a date first";
              }else{
-                 $this->sameDayValidation();
-                 $this->timeOutOfBounds();
-                 $this->startTimeValidation();
-                 $this->stopTimeValidation();
+                 $this->sameDayValidation($TimeLine);
+                 $this->timeOutOfBounds($TimeLine);
+                 $this->startTimeValidation($TimeLine);
+                 $this->stopTimeValidation($TimeLine);
+                 $_SESSION["message"] = $this->message;
              }
              if(empty($this->message)){
-                 $this->passedValidation(true);
+                 $this->passedValidation = true;
              }
-        }
+        //}
     }
 
-    private function sameDayValidation(){
-        $start = $this->getStartTime();
-        $stop = $this->getStopTime();
+    private function sameDayValidation($TimeLine){
+        $start = $TimeLine->getStartTime();
+        $stop = $TimeLine->getStopTime();
         $intStartTime = $this->getIntTimeForValidation($start);
         $intStopTime = $this->getIntTimeForValidation($stop);
         if($intStartTime <= 0 || $intStartTime == $intStopTime){
@@ -125,13 +129,13 @@ class SendStartStopTimeView{
     }
 
     //If intime is out of bounds
-    private function timeOutOfBounds(){
-        if(strtotime($this->getStartTime()) < strtotime($this->getStartTime()) ||
-                strtotime($this->getStopTime()) > strtotime($this->getStopTime())){
+    private function timeOutOfBounds($TimeLine){
+        if(strtotime($TimeLine->getStartTime()) < strtotime($TimeLine->getStartTime()) ||
+                strtotime($TimeLine->getStopTime()) > strtotime($TimeLine->getStopTime())){
             $this->message = "Event time is set out of timeline";
         }
 
-        if(strtotime($this->getStartTime()) >= strtotime($this->getStopTime())){
+        if(strtotime($TimeLine->getStartTime()) >= strtotime($TimeLine->getStopTime())){
             $this->message = "Stop time is wrong";
         }
     }
@@ -148,19 +152,19 @@ class SendStartStopTimeView{
         return $intTime;
     }
 
-    private function startTimeValidation(){
-        if(empty($_POST[self::$startTime])){
+    private function startTimeValidation($TimeLine){
+        if(empty($TimeLine->getStartTime())){
             $this->message = "Start time is missing";
         }else{
             //Valedering time
-            if($this->timeValidation($_POST[self::$startTime])){
+            if($this->timeValidation($TimeLine->getStartTime())){
                 $this->message = "Start time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
             }
         }
     }
 
-    private function stopTimeValidation(){
-        if(empty($_POST[self::$stopTime])){
+    private function stopTimeValidation($TimeLine){
+        if(empty($TimeLine->getStopTime())){
             if(!empty($this->message)){
                 $this->message .= "<br/>";
             }
@@ -170,7 +174,7 @@ class SendStartStopTimeView{
             if(!empty($this->message)){
                 $this->message .= "<br/>";
             }
-                if($this->timeValidation($_POST[self::$stopTime])){
+            if($this->timeValidation($TimeLine->getStopTime())){
                     $this->message .= "Stop time is wrong. Only hours like: 7:00, 8:00, 15:00 18:00";
             }
         }
@@ -178,10 +182,12 @@ class SendStartStopTimeView{
 
     //Houer only
     private function timeValidation($time){
-        $t = preg_match('#^(1?[0-9]|2[0-3]):[0][0]$#', $time);
+        $t = preg_match('#^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0][0]$#', $time);
         if($t == 0){
+            var_dump("true");
             return TRUE;
         }
+        var_dump("false");
         return FALSE;
     }
 

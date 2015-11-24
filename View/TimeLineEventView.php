@@ -68,8 +68,11 @@ class TimeLineEventView{
                                         foreach ($eventArr as $divId){
                                             //first div out if hit
                                             if($floatStartTime == $divId){
-                                                $start = $event->getStartTime();
-                                                $stop = $event->getStopTime();
+                                                //$start = $event->getStartTime();
+                                                //$stop = $event->getStopTime();
+                                                
+                                                $start = $this->addZeroOnTime($event->getStartTime());
+                                                $stop = $this->addZeroOnTime($event->getStopTime());
                                                 $color = $event->getEventColor();
                                                 
 
@@ -123,9 +126,8 @@ class TimeLineEventView{
         //REMOVE : TO . 
         $time = str_replace(":", ".", $time);
         //ZERO RULE
-        if(strlen($time) == 4){ //true add zero at beginngin
-            $time = "0" . $time;
-        }
+        $time = $this->addZeroOnTime($time);
+       
         //Check for half houer must be float
         if(substr($time, -2, 1) == 3){
             //remove "03" and get first end secound character
@@ -139,4 +141,13 @@ class TimeLineEventView{
          $time = (float)$time;
         return $time;
     }
+
+    public function addZeroOnTime($time) {
+		//ZERO RULE
+        if(strlen($time) == 4){ 
+            //true add zero at beginngin
+            $time = "0" . $time;
+        }
+        return $time;
+	}
 }

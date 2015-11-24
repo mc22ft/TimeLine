@@ -18,6 +18,7 @@ class NavigationView
     private static $doEvent = "SendEventView::Event";
     private static $doClearEvents = "SendEventView::ClearEvent";
     private static $doNewTimeLine = "SendEventView::NewTimeLine";
+    private static $doRegistration = "SendStartStopTimeView::Register";
 
     //Url empty
     public function inCalendar(){
@@ -72,6 +73,13 @@ class NavigationView
     //bool
     public function userPressedDeleteEvent() {
 		if(isset($_POST[self::$doDeleteEvent]) == true){
+		    return TRUE;
+		} 
+	    return FALSE;
+	}
+    //bool
+    public function userPressedDoRawTimeLine() {
+		if(isset($_POST[self::$doRegistration]) == true){
 		    return TRUE;
 		} 
 	    return FALSE;

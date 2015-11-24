@@ -25,12 +25,10 @@ class SendEventView{
     private $model;
     private $navigation;
     private $event;
-    private $timeValidation;
 
     public function __construct(\model\TimeLineModel $model, \view\NavigationView $navigationView){
         $this->model = $model;
         $this->navigation = $navigationView;
-        $this->timeValidation = new \view\ListEvents($this->model);
         $_SESSION["message"] = "";
     }
 
@@ -208,7 +206,7 @@ class SendEventView{
 
     //For Houer and not half houers any more...
     private function timeValidation($time){
-        $t = preg_match('#^(1?[0-9]|2[0-3]):([0][0]|[3][0])$#', $time);
+        $t = preg_match('#^([0-9]|0[0-9]|1[0-9]|2[0-3]):([0][0]|[3][0])$#', $time);
         if($t == 0){
             return TRUE;
         }

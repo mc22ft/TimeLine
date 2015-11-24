@@ -36,8 +36,8 @@ class ListEvents {
         {
             $counter = 1;
             foreach ($events as $event){
-                $startTime = $event->getStartTime();
-                $stopTime = $event->getStopTime();
+                $startTime = $this->addZeroOnTime($event->getStartTime());
+                $stopTime = $this->addZeroOnTime($event->getStopTime());
                 $text = $event->getEventText();
 
                 $hidden = "hidden";
@@ -67,11 +67,20 @@ class ListEvents {
 		return $formOut;
         }
     }
-
+    
     //Get start time for delete ID
     public function getStartTime() {
 		if (isset($_POST[self::$startTime]))
 			return trim($_POST[self::$startTime]);
 		return "";
+	}
+
+    public function addZeroOnTime($time) {
+		//ZERO RULE
+        if(strlen($time) == 4){ 
+            //true add zero at beginngin
+            $time = "0" . $time;
+        }
+        return $time;
 	}
 }

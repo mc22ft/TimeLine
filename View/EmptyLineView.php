@@ -50,7 +50,7 @@ class EmptyLineView{
                                   if($x == $divOut){ 
                                       //last = set stop time
                                       $out .= '<div class="ELVtableDiv2">
-                                                   <p class="ELVtableP1">'.$nextHouer.'</p>
+                                                   <p class="ELVtableP1 pull-right">'.$nextHouer.'</p>
                                                </div>';
                                   }else{
                                       $out .= '<div class="ELVtableDiv2">
